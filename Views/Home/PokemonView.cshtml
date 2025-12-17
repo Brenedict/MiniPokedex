@@ -1,0 +1,62 @@
+﻿@model CustomPokedex.Models.PokemonList;
+
+<style>
+    :root {
+        --white: #FFF;
+        --red: #E23534;
+        --light-red: #FFA4AD;
+        --black: #000;
+    }
+
+    .pokedex-window {
+        height: 560px;
+        width: 850px;
+        background-color: var(--white);
+        border: 1px aqua solid;
+        margin: 0 auto;
+    }
+
+    .nav {
+        background-color: var(--red);
+        padding: 1em 0;
+        display: flex;
+        gap: 2em;
+    }
+
+    .nav-item {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+    }
+
+</style>
+
+<div class="pokedex-window">
+    @* navigation bar*@
+    <form class="nav" method="get">
+        <button class="nav-item" type="submit" asp-controller="Home" asp-action="Index" method="get">Back</button>
+        <button class="nav-item" type="submit" name="tab" value="info">Info</button>
+        <button class="nav-item" type="submit" name="tab" value="stats">Stats</button>
+        <input type="hidden" name="pokedex_id" id="currentPokemonId" value="@Model.Pokemons[0].PokedexNumber" />
+    </form>
+
+    @{
+        var current_tab = Context.Request.Query["tab"].ToString();
+
+        var pokedex_id = int.Parse(Context.Request.Query["pokedex_id"].ToString());
+        var selectedPokemon = Model.Pokemons[0];
+
+        switch(current_tab)
+        {
+            case "info":
+                @Html.Partial("_InfoPartialTab", selectedPokemon);
+                break;
+            case "stats":
+                @Html.Partial("_StatsPartialTab", selectedPokemon);
+                break;
+            default:
+                @Html.Partial("_InfoPartialTab", selectedPokemon);
+                break;
+        }
+    }
+</div>

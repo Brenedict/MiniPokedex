@@ -1,0 +1,24 @@
+﻿@model CustomPokedex.Models.PokemonList
+
+<h2>Search Pokémon by ID</h2>
+
+<form asp-controller="Home" asp-action="PokedexSearch" method="get">
+    <input type="number" name="pokedex_id" placeholder="Enter Pokémon ID" />
+    <button type="submit">Search</button>
+</form>
+
+@{
+    if(Model.Pokemons.Count == 0)
+    {
+        <h1>Search something</h1>
+    }
+    else
+    {
+        foreach(var pokemon in Model.Pokemons)
+        {
+            string imageUrl = $"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{pokemon.PokedexNumber}.png";
+            <h1>@pokemon.Name</h1>
+            <img src=@imageUrl alt="pokemon">
+        }
+    }
+}

@@ -1,0 +1,97 @@
+﻿@using System.Text.Json
+
+@model CustomPokedex.Models.PokemonList;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    :root {
+        --white: #FFF;
+        --red: #E23534;
+        --light-red: #FFA4AD;
+        --black: #000;
+    }
+
+    /* layout */
+    
+    .pokedex-window {
+        height: 560px;
+        width: 850px;
+        background-color: var(--white);
+        border: 1px aqua solid;
+        margin: 0 auto;
+    }
+
+    .col {
+        border: 1px blue solid;
+    }
+
+    .pokemon-style-container {
+        background-color: var(--light-red);
+        border: 4px solid var(--black);
+
+    }
+
+    .pokemon-style-container h1 {
+        background-color: var(--white);
+    }
+
+    /* design */
+    .pokemon-item {
+        background: white;
+    }
+
+    .pokedex-list {
+        overflow: auto;
+    }
+
+
+
+</style>
+<div class="pokedex-window d-flex">
+    <div class="col">
+        <div class="pokemon-style-container">
+           <h1>POKEDEX</h1>
+        </div>
+        <div>
+            <h1 id="h1-pokemon">Bulbasaur</h1>
+            <img id="pokedex-view-picture" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="pokemon">
+            <button onclick="getInfoView()">info</button>
+        </div>
+    </div>
+
+    <div class="col pokemon-style-container pokedex-list">
+        @foreach(var pokemon in Model.Pokemons) {
+            string pokemonObject = @JsonSerializer.Serialize(pokemon);
+            <div class="pokemon-item" onclick="setView('@pokemonObject')">
+                <h2>NO. @pokemon.PokedexNumber</h2>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    let current_pokedex_number = 1;
+    function setView(pokemonObject) {
+        var pokemon = JSON.parse(pokemonObject);
+
+        let imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.pokedex_number}.png`;
+        document.getElementById("pokedex-view-picture").src = imageUrl;
+
+        document.getElementById("h1-pokemon").textContent = pokemon.name;
+
+        current_pokedex_number = pokemon.pokedex_number;
+    }
+
+    async function getInfoView() {
+        var id = current_pokedex_number;
+        window.location.href =`/pokemon?pokedex_id=${id}`;
+    }
+
+    function moveNextPokedexEntry() {
+        current_pokedex_number++;
+        let imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${current_pokedex_number}.png`;
+        // document.getElementById("h1-pokemon").textContent = pokemon_name;
+        document.getElementById("pokedex-view-picture").src = imageUrl;
+    }
+</script>
