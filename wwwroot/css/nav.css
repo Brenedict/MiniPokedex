@@ -1,0 +1,51 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+
+:root {
+    --white: #FFF;
+    --red: #E23534;
+    --light-red: #FFA4AD;
+    --black: #000;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-family: "Jersey 10", sans-serif;
+}
+
+.pokedex-window {
+    height: 560px;
+    width: 850px;
+    border: 1px aqua solid;
+    margin: 0 auto;
+    background-image: url("/assets/grid-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.nav {
+    background-color: var(--red);
+    padding: 1em 2em;
+    display: flex;
+    gap: 2em;
+}
+
+.nav-item {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    font-size: 1.8em;
+    transition: all ease-in 0.3s;
+}
+
+.nav-item:hover {
+    color: var(--white);
+}
+
+.nav-item .selected {
+    color: var(--white);
+}
+

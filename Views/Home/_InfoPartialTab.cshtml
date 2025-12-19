@@ -1,100 +1,51 @@
 ﻿@model CustomPokedex.Models.Pokemon
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
-<style>
-    :root {
-        --white: #FFF;
-        --red: #E23534;
-        --light-red: #FFA4AD;
-        --black: #000;
-    }
-
-    * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-        font-size: 1rem;
-    }
-
-    .main-container {
-        width: 100%;
-        height: 100%;
-        border: 1px solid orange;
-    }
-
-    /* row */
-    .pokedex-row {
-        border: 1px solid yellow;
-        display: flex;
-        align-items: center;
-    }
-
-    .image-classification-row {
-        border: 1px solid green;
-        justify-content: space-between;
-        padding: 0 2em;
-    }
-
-    .image-classification-row img {
-        width: 25%;
-        margin-left: 2.5em;
-    }
-
-    /* Pokemon typings and classification */
-    .pokemon-style-container {
-        background-color: var(--light-red);
-        border: solid 4px var(--black);
-    }
-
-    .pokemon-type-classification {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 50%;
-        height: 0%;
-    }
-    
-    .pokemon-number h1,
-    .pokemon-classification h1 {
-        margin: 0;
-    }
-
-    .pokemon-classification {
-       background-color: var(--white);
-    }
-
-    .pokemon-number {
-        background-color: var(--red);
-    }
-
-</style>
 
 @{
     string imageUrl = $"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{Model.PokedexNumber}.png";
 }
 
+<head>
+    <link rel="stylesheet" href="~/css/info.css" asp-append-version="true" />
+</head>
+
+
 <div class="main-container">
     <div class="pokedex-row image-classification-row">
         <img src="@imageUrl" alt="pokemon-image" />
-        <div class="pokemon-type-classification pokemon-style-container">
-            <div class="pokemon-number">
-                <h1>@Model.PokedexNumber</h1>
+        <div class="pokedex-col">
+            <div class="pokemon-type-classification pokemon-style-container">
+                <div class="pokemon-number">
+                    <h2>No. @Model.PokedexNumber @Model.Name</h2>
+                </div>
+                <div class="pokemon-classification">
+                    <h2>@Model.Classification</h2>
+                </div>
             </div>
-            <div class="pokemon-classification">
-                <h1>@Model.Classification</h1>
+            <div class="pokemon-types">
+                @{
+                    string type1 = $"{Model.Type1}-type";
+                    <h3 class=@type1>@Model.Type1</h3>
+                }
+
+                @if(Model.Type2 != "")
+                {
+                    string type2 = $"{Model.Type2}-type";
+                    <h3 class=@type2>@Model.Type2</h3>
+                }
+
             </div>
         </div>
     </div>
-    <div class="pokedex-row pokemon-style-container">
-        <h2>Abilities:</h2>
-        <div class="d-flex abilities">
-            @foreach (string ability in Model.Abilities)
-            {
-                <h1>@ability</h1>
-            }
+    <div class="pokedex-row pokemon-style-container p-1">
+        <div class="pokemon-style-container-white">
+            <h3>Abilities:</h3>
+            <div class="d-flex abilities">
+                @foreach (string ability in Model.Abilities)
+                {
+                    <h3>@ability</h3>
+                }
+            </div>
         </div>
     </div>
 </div>

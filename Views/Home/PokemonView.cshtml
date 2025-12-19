@@ -1,35 +1,7 @@
 ﻿@model CustomPokedex.Models.PokemonList;
-
-<style>
-    :root {
-        --white: #FFF;
-        --red: #E23534;
-        --light-red: #FFA4AD;
-        --black: #000;
-    }
-
-    .pokedex-window {
-        height: 560px;
-        width: 850px;
-        background-color: var(--white);
-        border: 1px aqua solid;
-        margin: 0 auto;
-    }
-
-    .nav {
-        background-color: var(--red);
-        padding: 1em 0;
-        display: flex;
-        gap: 2em;
-    }
-
-    .nav-item {
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-    }
-
-</style>
+<head>
+    <link rel="stylesheet" href="~/css/nav.css" asp-append-version="true" />
+</head>
 
 <div class="pokedex-window">
     @* navigation bar*@
@@ -60,3 +32,6 @@
         }
     }
 </div>
+<script>
+
+</script>

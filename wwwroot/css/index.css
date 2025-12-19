@@ -1,0 +1,120 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+
+:root {
+    --white: #FFF;
+    --red: #E23534;
+    --light-red: #FFA4AD;
+    --black: #000;
+    --gray: #888888;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-family: "Jersey 10", sans-serif;
+}
+
+/* layout */
+
+.pokedex-window {
+    height: 560px;
+    width: 850px;
+    margin: 0 auto;
+    padding: 10px;
+    background-image: url("/assets/grid-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    gap: 10px;
+}
+
+.pokedex-col {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+h1 {
+    margin: 0;
+}
+
+.pokemon-style-container {
+    background-color: var(--light-red);
+    border: 4px solid var(--black);
+    padding: 1px 3px;
+    border-radius: 10px;
+}
+
+.pokemon-style-container-white {
+    background-color: var(--white);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 5px;
+}
+
+#pokedex-view-picture {
+    width: 200px;
+}
+
+.pokedex-image-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid var(--black);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.pokedex-view-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px
+}
+
+.pokedex-bttn {
+    padding: 0 10px;
+    width: 100px;
+    background-color: var(--white);
+    border-radius: 20px;
+    border: 2px solid var(--black);
+    font-weight: 900;
+    transition: all ease 0.3s
+}
+
+.pokedex-bttn:hover {
+    background-color: var(--gray);
+}
+
+.info-bttn {
+    background-color: var(--red);
+    color: var(--white);
+}
+
+.pokemon-item {
+    background-color: var(--gray);
+    padding: 5px 10px;
+    border-radius: 10px;
+    transition: all ease 0.3s
+}
+
+.pokemon-item:hover {
+    background-color: var(--red);
+}
+
+.pokemon-item h1 {
+    font-size: 1.5em;
+}
+
+/* design */
+
+.pokedex-list {
+    overflow: auto;
+}

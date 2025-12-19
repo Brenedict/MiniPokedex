@@ -5,69 +5,37 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<style>
-    :root {
-        --white: #FFF;
-        --red: #E23534;
-        --light-red: #FFA4AD;
-        --black: #000;
-    }
+<head>
+    <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+</head>
 
-    /* layout */
-    
-    .pokedex-window {
-        height: 560px;
-        width: 850px;
-        background-color: var(--white);
-        border: 1px aqua solid;
-        margin: 0 auto;
-    }
-
-    .col {
-        border: 1px blue solid;
-    }
-
-    .pokemon-style-container {
-        background-color: var(--light-red);
-        border: 4px solid var(--black);
-
-    }
-
-    .pokemon-style-container h1 {
-        background-color: var(--white);
-    }
-
-    /* design */
-    .pokemon-item {
-        background: white;
-    }
-
-    .pokedex-list {
-        overflow: auto;
-    }
-
-
-
-</style>
 <div class="pokedex-window d-flex">
-    <div class="col">
+    <div class="pokedex-col">
         <div class="pokemon-style-container">
-           <h1>POKEDEX</h1>
+            <h1 class="pokemon-style-container-white">POKEDEX</h1>
         </div>
         <div>
-            <h1 id="h1-pokemon">Bulbasaur</h1>
-            <img id="pokedex-view-picture" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="pokemon">
-            <button onclick="getInfoView()">info</button>
+            <div class="pokedex-image-name">
+                <img id="pokedex-view-picture" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="pokemon">
+                <h1 id="h1-pokemon">Bulbasaur</h1>
+            </div>
+            <div class="pokedex-view-buttons">
+                <button class="pokedex-bttn info-bttn" onclick="getInfoView()">info</button>
+                <button class="pokedex-bttn" onclick="movePrevPokedexEntry()">prev</button>
+                <button class="pokedex-bttn" onclick="moveNextPokedexEntry()">next</button>
+            </div>
         </div>
     </div>
 
-    <div class="col pokemon-style-container pokedex-list">
-        @foreach(var pokemon in Model.Pokemons) {
-            string pokemonObject = @JsonSerializer.Serialize(pokemon);
-            <div class="pokemon-item" onclick="setView('@pokemonObject')">
-                <h2>NO. @pokemon.PokedexNumber</h2>
-            </div>
-        }
+    <div class="pokedex-col pokemon-style-container pokedex-list">
+        <div class="pokemon-style-container-white">
+            @foreach(var pokemon in Model.Pokemons) {
+                string pokemonObject = @JsonSerializer.Serialize(pokemon);
+                <div id="pokedex-num-@pokemon.PokedexNumber" class="pokemon-item" onclick="setView('@pokemonObject')" data-pokename="@pokemon.Name">
+                    <h1>NO. @pokemon.PokedexNumber @pokemon.Name.ToUpper()</h1>
+                </div>
+            }
+        </div>
     </div>
 </div>
 <script>
@@ -90,8 +58,25 @@
 
     function moveNextPokedexEntry() {
         current_pokedex_number++;
+
         let imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${current_pokedex_number}.png`;
-        // document.getElementById("h1-pokemon").textContent = pokemon_name;
         document.getElementById("pokedex-view-picture").src = imageUrl;
+        
+        const pokemon_id_search = `pokedex-num-${current_pokedex_number}`;
+        const next_pokemon_name = document.getElementById(pokemon_id_search).dataset.pokename;
+        document.getElementById("h1-pokemon").textContent = next_pokemon_name;
+    }
+
+    function movePrevPokedexEntry() {
+        if(current_pokedex_number > 1) {
+            current_pokedex_number--;
+        }
+
+        let imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${current_pokedex_number}.png`;
+        document.getElementById("pokedex-view-picture").src = imageUrl;
+
+        const pokemon_id_search = `pokedex-num-${current_pokedex_number}`;
+        const next_pokemon_name = document.getElementById(pokemon_id_search).dataset.pokename;
+        document.getElementById("h1-pokemon").textContent = next_pokemon_name;
     }
 </script>

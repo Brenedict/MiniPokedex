@@ -1,12 +1,41 @@
 ﻿@model CustomPokedex.Models.Pokemon;
-
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+<head>
+    <link rel="stylesheet" href="~/css/stats.css" asp-append-version="true" />
+</head>
 
 @{
     string imageUrl = $"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{Model.PokedexNumber}.png";
 }
 
-<h1>@Model.Name</h1>
-<img src="@imageUrl" />
+<div class="pokedex-row">
+    <img src="@imageUrl" />
+    <div class="pokemon-stats-container">
+        <div class="pokemon-stat-item">
+            <h1>@Model.Name</h1>
+        </div>
+        <div class="pokemon-stat-item">
+            <h1>DEX NO.</h1>
+            <h1>@Model.PokedexNumber</h1>
+        </div>
+        <div class="pokemon-stat-item">
+            <h1>HP</h1>
+            <h1>@Model.HP</h1>
+        </div>
+        <div class="pokemon-stat-item">
+            <h1>ATTACK</h1>
+            <h1>@Model.Attack</h1>
+        </div>
+        <div class="pokemon-stat-item">
+            <h1>DEFENSE</h1>
+            <h1>@Model.Defense</h1>
+        </div>
+        <div class="pokemon-stat-item">
+            <h1>SP.ATTACK</h1>
+            <h1>@Model.SpAttack</h1>
+        </div>
+        <div class="pokemon-stat-item">
+            <h1>SP.DEFENSE</h1>
+            <h1>@Model.SpDefense</h1>
+        </div>
+    </div>
+</div>
